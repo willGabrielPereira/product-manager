@@ -27,4 +27,12 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $e)
+    {
+        if ($e instanceof ApiException)
+            return response()->json($e->getErrors(),  $e->getCode() ?: 400);
+
+        return parent::render($request, $e);
+    }
 }

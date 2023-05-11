@@ -1,0 +1,13 @@
+docker run nomeImagem // Cria container a partir da imagem
+docker run --rm nomeImagem // --rm remove o container assim que ele é desligado
+docker run -d -p 80:80 nomeImagem // -d destacado, -p portas, primeira sendo a do PC e segunda do servidor
+docker run -d -p 80:80 --name=nome_do_container --rm -v diretorioLocal:diretorioServidor nomeImagem // -v cria um volume, primeiro parametro, onde estao os arquivos do PC, segundo do servidor
+
+docker ps // Mostra todos os containers
+docker rm nomeContainer // Remove o container
+docker images // Mostra todas as imagens
+docker rmi nomeImagem // Remove a imagem
+docker volume ls // Mostra todos os volumes
+docker volume rm nomeVolume // Remove o volume
+
+docker compose up

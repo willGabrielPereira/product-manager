@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  db: #container do mysql
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: manager
+      MYSQL_DATABASE: product-manager
+      MYSQL_USER: manager
+      MYSQL_PASSWORD: manager
+
+  php: #container do php
+    depends_on:
+      - db
+    build: ./
+    restart: always
+    ports:
+      - 80:80
+    # volumes:
+    #   - C:\Users\William\Desktop\product-manager:/var/www/html/
+    environment:
+      DB_HOST: db:3306
+      DB_USER: manager
+      DB_PASSWORD: manager
+      DB_NAME: product-manager
+
+volumes:
+  db_data: {}
