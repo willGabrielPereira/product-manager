@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasPrincipal;
 
 class Address extends Model
 {
-    use HasFactory;
+    use HasFactory, HasPrincipal;
+
+    protected static $principalOver = 'user_id';
 
     protected $fillable = [
         'user_id',
@@ -23,7 +26,7 @@ class Address extends Model
         'country',
         'latitude',
         'longitude',
-        'default',
+        'principal',
         'created_at',
         'updated_at',
     ];
@@ -33,7 +36,7 @@ class Address extends Model
         'updated_at' => 'datetime',
         'latitude' => 'double',
         'longitude' => 'double',
-        'default' => 'boolean',
+        'principal' => 'boolean',
     ];
 
     public function user() {

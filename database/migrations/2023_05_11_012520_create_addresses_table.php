@@ -26,11 +26,10 @@ return new class extends Migration
             $table->string('country');
             $table->double('latitude', 10, 7)->nullable();
             $table->double('longitude', 10, 7)->nullable();
-            $table->boolean('default');
+            $table->boolean('principal')->default(false);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unique(['user_id', 'default']);
         });
     }
 

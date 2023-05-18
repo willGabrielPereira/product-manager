@@ -13,6 +13,6 @@ if (!function_exists('validateOrFail')) {
         if ($validator->fails())
             return throw new ApiException($validator->errors(), $request);
 
-        return $validations;
+        return $validator;
     }
 }

@@ -16,12 +16,11 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->string('description');
             $table->string('type');
-            $table->boolean('default');
+            $table->boolean('principal')->default(false);
             $table->json('metadata')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unique(['user_id', 'default']);
         });
     }
 

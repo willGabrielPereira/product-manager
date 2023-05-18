@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -23,14 +23,20 @@ class UserController extends Controller
 
     public function update(Request $request) {
 
-        $validator = validateOrFail([
-            'name' => 'required',
-        ]);
-
-        dd($validator);
-
         $this->user->fill($request->all());
 
-        return response()->json($user);
+        validateOrFail([
+            'name' => 'required',
+            'email' => [
+                'required', 
+                'email',
+                Rule::unique('users')->ignore($this->user->id)
+            ],
+            'password' => 'prohibited',
+        ], $this->user->toArray());
+
+        $this->user->save();
+
+        return response()->json($this->user);
     }
 }

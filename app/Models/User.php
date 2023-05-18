@@ -31,4 +31,12 @@ class User extends Authenticatable
         'updated_at' => 'datetime',
         'password' => 'hashed'
     ];
+
+    public function addresses() {
+        return $this->hasMany(Address::class);
+    }
+
+    public function payments() {
+        return $this->hasMany(Payment::class);
+    }
 }

@@ -4,16 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasPrincipal;
 
 class Payment extends Model
 {
-    use HasFactory;
+    use HasFactory, HasPrincipal;
+
+    protected static $principalOver = 'user_id';
 
     protected $fillable = [
         'user_id',
         'description',
         'type',
-        'default',
+        'principal',
         'metadata',
         'updated_at',
         'created_at',
@@ -23,7 +26,7 @@ class Payment extends Model
         'metadata' => 'json',
         'updated_at' => 'datetime',
         'created_at' => 'datetime',
-        'default' => 'boolean',
+        'principal' => 'boolean',
     ];
 
     public function user()

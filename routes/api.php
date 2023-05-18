@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\RouteController;
 use App\Http\Controllers\UserController;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,15 +18,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/users', fn () => response()->json(User::get()));
 
 Route::post('/signup', [AuthController::class, 'signup'])->name('signup');
+Route::post('/signin', [AuthController::class, 'signin'])->name('signin');
+Route::get('/routes', RouteController::class)->name('routes');
 
-// Route::middleware('auth:sanctum')->group('signed', function () {
-    Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'show'])->name('user.show');
-    Route::middleware('auth:sanctum')->put('/user/update', [UserController::class, 'update'])->name('user.update');
-// });
+Route::name('signed.')->middleware('auth:sanctum')->group(function () {
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+    // User routes
+    Route::name('user.')->prefix('/user')->group(function () {
+        Route::get('/', [UserController::class, 'show'])->name('show');
+        Route::put('/update', [UserController::class, 'update'])->name('update');
+
+        Route::apiResource('address', AddressController::class);
+        Route::apiResource('payment', PaymentController::class);
+    });
+
+
+
+});
