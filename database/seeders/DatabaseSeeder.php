@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $category = \App\Models\Category::create([
-            'description' => 'Placas de Vídel (GPU)',
+            'description' => 'Placas de Vídeo (GPU)',
         ]);
 
         \App\Models\Category::create([

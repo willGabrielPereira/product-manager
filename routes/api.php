@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\UserController;
@@ -23,8 +24,9 @@ Route::post('/signup', [AuthController::class, 'signup'])->name('signup');
 Route::post('/signin', [AuthController::class, 'signin'])->name('signin');
 Route::get('/routes', RouteController::class)->name('routes');
 
-Route::name('signed.')->middleware('auth:sanctum')->group(function () {
+Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
 
+Route::name('signed.')->middleware('auth:sanctum')->group(function () {
     // User routes
     Route::name('user.')->prefix('/user')->group(function () {
         Route::get('/', [UserController::class, 'show'])->name('show');
@@ -34,6 +36,8 @@ Route::name('signed.')->middleware('auth:sanctum')->group(function () {
         Route::apiResource('payment', PaymentController::class);
     });
 
-
-
+    Route::name('manager.')->middleware('manager')->group(function () {
+        Route::apiResource('category', CategoryController::class)->except('index');
+        // Route::apiResource('categories', CategoryController::class);
+    });
 });
