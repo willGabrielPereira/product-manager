@@ -20,8 +20,8 @@ class AddressController extends Controller
         return $this->address->all();
     }
 
-    public function show($id) {
-        return $this->address->find($id);
+    public function show(Address $address) {
+        return $address;
     }
 
     public function store(Request $request) {

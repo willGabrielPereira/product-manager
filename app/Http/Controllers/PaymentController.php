@@ -21,9 +21,9 @@ class PaymentController extends Controller
         return $this->payment->all();
     }
 
-    public function show($id)
+    public function show(Payment $payment)
     {
-        return $this->payment->find($id);
+        return $payment;
     }
 
     public function store(Request $request)
