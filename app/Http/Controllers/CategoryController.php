@@ -27,7 +27,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         validateOrFail([
-            'type' => 'required',
+            'description' => 'required',
         ]);
 
         $category = $this->category->create($request->all());
