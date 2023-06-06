@@ -20,9 +20,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::get('/', function () {
+    return response()->json(['message' => 'hi']);
+})->name('index');
+
 Route::post('/signup', [AuthController::class, 'signup'])->name('signup');
 Route::post('/signin', [AuthController::class, 'signin'])->name('signin');
 Route::get('/routes', RouteController::class)->name('routes');
+// Route::get('/routes', fn() => response()->json(new Ziggy))->name('routes');
 
 Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
 
