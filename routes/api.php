@@ -4,6 +4,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -23,13 +24,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return response()->json(['message' => 'hi']);
 })->name('index');
+Route::get('/routes', RouteController::class)->name('routes');
+
+
 
 Route::post('/signup', [AuthController::class, 'signup'])->name('signup');
 Route::post('/signin', [AuthController::class, 'signin'])->name('signin');
-Route::get('/routes', RouteController::class)->name('routes');
-// Route::get('/routes', fn() => response()->json(new Ziggy))->name('routes');
 
+
+Route::get('/product', [ProductController::class, 'index'])->name('product.index');
 Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
+
+
 
 Route::name('signed.')->middleware('auth:sanctum')->group(function () {
     // User routes
